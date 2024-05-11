@@ -4,14 +4,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: $070ee94e-23a6-4618-91e8-2f5d2c9140c5
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18.x'
           cache: 'npm'
       - run: npm install
       - run: make setup
@@ -19,3 +15,7 @@ jobs:
         run: make lint
       - name: run tests
         run: make test
+      - name: Run Snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
