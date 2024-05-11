@@ -5,6 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{1f283a04-6eb7-4e8a-8348-07293e0a6705}}
       - uses: actions/setup-node@v3
       - run: npm install
       - run: make setup
